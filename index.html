@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="traditional">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajeesh &amp; Archana | Wedding Invitation</title>
+<style>
+  :root{
+    --maroon:#7a1f2b;
+    --maroon-dark:#5c1420;
+    --gold:#c9a227;
+    --gold-light:#e6c877;
+    --cream:#fdf6ea;
+    --cream-dark:#f5e9d3;
+    --ink:#3a2418;
+    --green:#1f4d3d;
+    --shadow:0 10px 30px rgba(90,20,20,.12);
+    --serif:'Georgia','Cambria','Times New Roman',serif;
+  }
+
+  /* ---------- THEME VARIANTS ---------- */
+  /* Elegant & Minimal: soft neutral palette, no ornamentation, clean sans body */
+  :root[data-theme="minimal"]{
+    --maroon:#8a6a5c; --maroon-dark:#4a3b34;
+    --gold:#b8a48a; --gold-light:#d8cbb8;
+    --cream:#faf8f5; --cream-dark:#f1ece4;
+    --ink:#2f2b28; --green:#7c8c7a;
+    --serif:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  }
+  :root[data-theme="minimal"] .names,
+  :root[data-theme="minimal"] .section-title,
+  :root[data-theme="minimal"] .fam-name{ font-style:normal; letter-spacing:2px; font-weight:300; }
+  :root[data-theme="minimal"] .om,
+  :root[data-theme="minimal"] .divider span{ display:none; }
+
+  /* Modern Colorful: bold contrasting palette, rounded shapes, bold sans */
+  :root[data-theme="colorful"]{
+    --maroon:#e8562f; --maroon-dark:#1f2d5a;
+    --gold:#ffb703; --gold-light:#ffd166;
+    --cream:#fff8f0; --cream-dark:#ffe9d6;
+    --ink:#22223b; --green:#2ec4b6;
+    --serif:'Segoe UI',system-ui,Arial,sans-serif;
+  }
+  :root[data-theme="colorful"] .names,
+  :root[data-theme="colorful"] .section-title,
+  :root[data-theme="colorful"] .fam-name{ font-style:normal; font-weight:800; }
+  :root[data-theme="colorful"] .d-card,
+  :root[data-theme="colorful"] .gal-item,
+  :root[data-theme="colorful"] .cd-box,
+  :root[data-theme="colorful"] .invite-thumb,
+  :root[data-theme="colorful"] .map-frame{ border-radius:26px; }
+
+  /* Romantic Garden (surprise pick): emerald & blush, still ornate */
+  :root[data-theme="garden"]{
+    --maroon:#2f5233; --maroon-dark:#1c3320;
+    --gold:#d98a99; --gold-light:#f2b6c6;
+    --cream:#fbf7f2; --cream-dark:#f4e9de;
+    --ink:#33302c; --green:#6b8f71;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--serif);
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  section{padding:90px 0;position:relative;}
+
+  /* Ornamental divider */
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto;color:var(--gold);}
+  .divider::before,.divider::after{content:'';flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .divider span{font-size:20px;}
+
+  .eyebrow{
+    text-transform:uppercase;letter-spacing:4px;font-size:12px;color:var(--maroon);
+    text-align:center;font-weight:bold;
+  }
+  h1,h2,h3{font-weight:normal;color:var(--maroon-dark);}
+  .section-title{text-align:center;font-size:38px;margin-bottom:6px;font-style:italic;}
+
+  /* corner flourish svg */
+  .corner{position:absolute;width:110px;height:110px;opacity:.55;pointer-events:none;}
+  .corner.tl{top:10px;left:10px;}
+  .corner.tr{top:10px;right:10px;transform:scaleX(-1);}
+  .corner.bl{bottom:10px;left:10px;transform:scaleY(-1);}
+  .corner.br{bottom:10px;right:10px;transform:scale(-1,-1);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(253,246,234,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--gold-light);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px;}
+  .brand{font-size:20px;color:var(--maroon-dark);letter-spacing:1px;}
+  .navlinks{display:flex;gap:26px;font-size:14px;letter-spacing:.5px;}
+  .navlinks a{position:relative;padding:4px 0;}
+  .navlinks a:hover{color:var(--maroon);}
+  #navToggle{display:none;}
+  .burger{display:none;font-size:22px;background:none;border:none;color:var(--maroon-dark);cursor:pointer;}
+  @media(max-width:700px){
+    .navlinks{
+      position:absolute;top:100%;left:0;right:0;background:var(--cream);
+      flex-direction:column;gap:0;max-height:0;overflow:hidden;transition:max-height .3s ease;
+      border-bottom:1px solid var(--gold-light);
+    }
+    .navlinks a{padding:14px 24px;border-top:1px solid var(--cream-dark);}
+    #navToggle:checked ~ .navlinks{max-height:400px;}
+    .burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:140px 20px 80px;
+    background:
+      radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--gold) 18%, transparent), transparent 40%),
+      radial-gradient(circle at 85% 80%, color-mix(in srgb, var(--maroon) 15%, transparent), transparent 40%),
+      var(--cream);
+    position:relative;
+  }
+  .om{font-size:34px;color:var(--maroon);margin-bottom:10px;}
+  .hero .eyebrow{margin-bottom:18px;}
+  .names{
+    font-size:clamp(42px,9vw,86px);
+    color:var(--maroon-dark);
+    font-style:italic;
+    line-height:1.15;
+  }
+  .amp{color:var(--gold);font-size:.7em;display:block;margin:4px 0;}
+  .hero-sub{margin-top:18px;font-size:18px;color:var(--ink);max-width:560px;}
+  .hero-date{
+    margin-top:34px;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--maroon);
+    border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:12px 30px;
+  }
+
+  .countdown{display:flex;gap:18px;margin-top:44px;flex-wrap:wrap;justify-content:center;}
+  .cd-box{
+    background:#fff;border:1px solid var(--gold-light);border-radius:10px;
+    min-width:82px;padding:16px 10px;box-shadow:var(--shadow);
+  }
+  .cd-num{font-size:32px;color:var(--maroon-dark);font-weight:bold;font-family:var(--serif);}
+  .cd-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-top:4px;}
+
+  .scroll-cue{margin-top:60px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--maroon);opacity:.7;animation:bob 2s infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+  /* ---------- FAMILIES ---------- */
+  .families{background:#fff;}
+  .fam-grid{display:grid;grid-template-columns:1fr;gap:36px;margin-top:50px;}
+  @media(min-width:720px){.fam-grid{grid-template-columns:1fr auto 1fr;align-items:center;}}
+  .fam-card{text-align:center;padding:20px;}
+  .fam-role{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .fam-name{font-size:30px;font-style:italic;color:var(--maroon-dark);margin-bottom:14px;}
+  .fam-parents{font-size:15px;color:var(--ink);margin-bottom:6px;}
+  .fam-address{font-size:14px;color:#7a6a5c;}
+  .fam-divider{font-size:30px;color:var(--gold);text-align:center;}
+
+  /* ---------- DETAILS / MUHURTHAM ---------- */
+  .details{background:linear-gradient(180deg,var(--cream) 0%,var(--cream-dark) 100%);}
+  .detail-cards{display:grid;grid-template-columns:1fr;gap:24px;margin-top:50px;}
+  @media(min-width:720px){.detail-cards{grid-template-columns:repeat(3,1fr);}}
+  .d-card{
+    background:#fff;border-radius:14px;padding:34px 24px;text-align:center;
+    box-shadow:var(--shadow);border:1px solid var(--gold-light);
+  }
+  .d-icon{font-size:30px;margin-bottom:14px;color:var(--maroon);}
+  .d-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+  .d-main{font-size:22px;color:var(--maroon-dark);margin-bottom:6px;}
+  .d-sub{font-size:14px;color:#7a6a5c;}
+
+  .malayalam-date{text-align:center;margin-top:26px;font-size:14px;color:var(--maroon);letter-spacing:1px;}
+
+  .directions-btn{
+    display:inline-block;margin-top:36px;background:var(--maroon);color:#fff;
+    padding:14px 32px;border-radius:30px;font-size:14px;letter-spacing:2px;text-transform:uppercase;
+    box-shadow:var(--shadow);transition:background .2s, transform .2s;
+  }
+  .directions-btn:hover{background:var(--maroon-dark);transform:translateY(-2px);}
+  .center{text-align:center;}
+
+  .map-frame{
+    margin-top:40px;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);
+    border:1px solid var(--gold-light);
+  }
+  .map-frame iframe{width:100%;height:360px;border:0;display:block;}
+
+  .qr-card{
+    margin:36px auto 0;max-width:220px;background:#fff;border:1px solid var(--gold-light);
+    border-radius:14px;padding:24px;text-align:center;box-shadow:var(--shadow);
+  }
+  .qr-img{width:140px;height:140px;margin:0 auto;display:block;border-radius:8px;}
+  .qr-caption{margin-top:14px;font-size:12px;letter-spacing:1px;color:var(--green);text-transform:uppercase;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:#fff;}
+  .gal-viewport{
+    overflow:hidden;margin-top:50px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  }
+  .gal-track{
+    display:flex;gap:16px;width:max-content;
+    animation:galScroll 34s linear infinite;
+  }
+  .gal-viewport:hover .gal-track,
+  .gal-track.paused{animation-play-state:paused;}
+  @keyframes galScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .gal-item{
+    flex:0 0 240px;aspect-ratio:3/4;overflow:hidden;border-radius:10px;cursor:pointer;
+    box-shadow:var(--shadow);border:1px solid var(--gold-light);position:relative;
+  }
+  .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .gal-item:hover img{transform:scale(1.08);}
+  .gal-hint{text-align:center;font-size:12px;letter-spacing:1px;color:#a8977e;margin-top:22px;}
+  @media(max-width:700px){
+    .gal-item{flex-basis:170px;}
+    .gal-track{animation-duration:24s;}
+  }
+
+  .lightbox{
+    position:fixed;inset:0;background:rgba(30,10,10,.9);display:none;
+    align-items:center;justify-content:center;z-index:1000;padding:20px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{max-width:100%;max-height:88vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .lightbox-close{
+    position:absolute;top:24px;right:30px;font-size:34px;color:#fff;cursor:pointer;
+    line-height:1;
+  }
+  .lightbox-nav{
+    position:absolute;top:50%;transform:translateY(-50%);font-size:38px;color:#fff;
+    cursor:pointer;padding:10px 18px;user-select:none;
+  }
+  .lightbox-prev{left:6px;}
+  .lightbox-next{right:6px;}
+
+  /* ---------- INVITATION ---------- */
+  .invite-card{
+    background:linear-gradient(180deg,var(--cream-dark) 0%,var(--cream) 100%);
+    text-align:center;
+  }
+  .invite-thumb{
+    max-width:320px;margin:40px auto 0;border-radius:10px;overflow:hidden;box-shadow:var(--shadow);
+    border:1px solid var(--gold-light);cursor:pointer;
+  }
+  .invite-actions{margin-top:26px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-outline{
+    border:1px solid var(--maroon);color:var(--maroon);padding:12px 26px;border-radius:30px;
+    font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:.2s;
+  }
+  .btn-outline:hover{background:var(--maroon);color:#fff;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--maroon-dark);color:#e9d4b8;text-align:center;padding:60px 20px 30px;border-top:1px solid rgba(230,200,119,.3);}
+  .hosts-title{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+  .hosts-names{font-size:17px;font-style:italic;max-width:520px;margin:0 auto 30px;}
+  .contact-row{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;font-size:14px;margin-bottom:26px;}
+  .contact-row a{border-bottom:1px solid rgba(230,200,119,.5);padding-bottom:2px;}
+  .footer-note{font-size:12px;color:#b89a76;}
+
+  /* ---------- THEME SWITCHER ---------- */
+  .theme-switcher{
+    position:fixed;bottom:18px;right:18px;z-index:200;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    border:1px solid rgba(0,0,0,.08);border-radius:30px;padding:8px 12px 8px 10px;
+    display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);
+  }
+  .ts-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#555;font-family:'Segoe UI',sans-serif;margin-right:2px;}
+  .ts-dot{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:transform .15s, border-color .15s;}
+  .ts-dot:hover{transform:scale(1.15);}
+  .ts-dot.active{border-color:#333;}
+  .ts-traditional{background:linear-gradient(135deg,#7a1f2b,#c9a227);}
+  .ts-minimal{background:linear-gradient(135deg,#8a6a5c,#d8cbb8);}
+  .ts-colorful{background:linear-gradient(135deg,#e8562f,#ffb703);}
+  .ts-garden{background:linear-gradient(135deg,#2f5233,#f2b6c6);}
+  @media(max-width:500px){ .theme-switcher{bottom:10px;right:10px;padding:6px 8px;} .ts-label{display:none;} }
+</style>
+</head>
+<body>
+
+<div class="theme-switcher" id="themeSwitcher">
+  <span class="ts-label">Style</span>
+  <button class="ts-dot ts-traditional" data-theme="traditional" title="Traditional Indian" aria-label="Traditional Indian"></button>
+  <button class="ts-dot ts-minimal" data-theme="minimal" title="Elegant &amp; Minimal" aria-label="Elegant &amp; Minimal"></button>
+  <button class="ts-dot ts-colorful" data-theme="colorful" title="Modern Colorful" aria-label="Modern Colorful"></button>
+  <button class="ts-dot ts-garden" data-theme="garden" title="Romantic Garden (surprise pick)" aria-label="Romantic Garden"></button>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">A &amp; A</div>
+    <input type="checkbox" id="navToggle" style="display:none;">
+    <label class="burger" for="navToggle">&#9776;</label>
+    <div class="navlinks">
+      <a href="#home">Home</a>
+      <a href="#families">Families</a>
+      <a href="#details">Details</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#invitation">Invitation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="om">&#3421;</div>
+  <div class="eyebrow">Together with their families</div>
+  <h1 class="names">Ajeesh<span class="amp">&amp;</span>Archana</h1>
+  <p class="hero-sub">Cordially invite your esteemed presence with family on the auspicious occasion of their wedding</p>
+  <div class="hero-date">Saturday &middot; 12 September 2026 &middot; Reen Palace Auditorium, Haripad</div>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Secs</div></div>
+  </div>
+
+  <div class="scroll-cue">Scroll down &darr;</div>
+</section>
+
+<!-- ================= FAMILIES ================= -->
+<section class="families" id="families">
+  <div class="wrap">
+    <div class="eyebrow">With the blessings of the almighty</div>
+    <h2 class="section-title">Our Families</h2>
+    <div class="divider"><span>&#10047;</span></div>
+
+    <div class="fam-grid">
+      <div class="fam-card">
+        <div class="fam-role">The Groom</div>
+        <div class="fam-name">Ajeesh P</div>
+        <div class="fam-parents">Son of Mr. Pramod K. P &amp; Mrs. Suvarna Lekha</div>
+        <div class="fam-address">Kaleekkel Thekkethil, Cheriyanad PO,<br>Chengannur, Alappuzha</div>
+      </div>
+
+      <div class="fam-divider">&amp;</div>
+
+      <div class="fam-card">
+        <div class="fam-role">The Bride</div>
+        <div class="fam-name">Archana P</div>
+        <div class="fam-parents">Daughter of Mr. Madhavan Kutty Nair &amp; Mrs. Pushpakumari</div>
+        <div class="fam-address">Vadakkemadathil, Pallipad PO,<br>Haripad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DETAILS ================= -->
+<section class="details" id="details">
+  <div class="wrap">
+    <div class="eyebrow">Save the date</div>
+    <h2 class="section-title">Wedding Details</h2>
+    <div class="divider"><span>&#10047;</span></div>
+
+    <div class="detail-cards">
+      <div class="d-card">
+        <div class="d-icon">&#128197;</div>
+        <div class="d-title">Date</div>
+        <div class="d-main">12 September 2026</div>
+        <div class="d-sub">Saturday</div>
+      </div>
+      <div class="d-card">
+        <div class="d-icon">&#9200;</div>
+        <div class="d-title">Muhurtham</div>
+        <div class="d-main">11:00 &ndash; 11:30 AM</div>
+        <div class="d-sub">Please arrive by 10:30 AM</div>
+      </div>
+      <div class="d-card">
+        <div class="d-icon">&#127963;&#65039;</div>
+        <div class="d-title">Venue</div>
+        <div class="d-main">Reen Palace Auditorium</div>
+        <div class="d-sub">Narakathara Junction, Danapady, Haripad</div>
+      </div>
+    </div>
+
+    <div class="malayalam-date">27th Chingam 1202, Malayalam Era</div>
+
+    <div class="center">
+      <a class="directions-btn" href="https://www.google.com/maps/search/?api=1&query=Reen+Palace+Auditorium+Narakathara+Junction+Danapady+Haripad" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+
+    <div class="map-frame">
+      <iframe
+        src="https://www.google.com/maps?q=Reen+Palace+Auditorium+Narakathara+Junction+Danapady+Haripad&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="qr-card">
+      <img src="qr-code.png" alt="QR code to the venue location" class="qr-img">
+      <div class="qr-caption">Scan to open the venue in Maps</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="eyebrow">A few of our favourite moments</div>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"><span>&#10047;</span></div>
+
+    <div class="gal-viewport">
+      <div class="gal-track" id="galTrack">
+        <div class="gal-item"><img src="images/web/1.jpg" alt="Ajeesh and Archana" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/2.jpg" alt="Ajeesh and Archana" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/3.jpg" alt="Ajeesh and Archana" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/4.jpg" alt="Ajeesh and Archana engagement" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/5.jpg" alt="Ajeesh and Archana with family" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/6.jpg" alt="Ajeesh and Archana engagement" loading="lazy"></div>
+        <div class="gal-item"><img src="images/web/7.jpg" alt="Ajeesh and Archana engagement" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="gal-hint">Hover to pause &middot; tap a photo to view full size</div>
+  </div>
+</section>
+
+<!-- ================= INVITATION ================= -->
+<section class="invite-card" id="invitation">
+  <div class="wrap">
+    <div class="eyebrow">The formal card</div>
+    <h2 class="section-title">E-Invitation</h2>
+    <div class="divider"><span>&#10047;</span></div>
+    <p class="center" style="max-width:480px;margin:0 auto;color:#7a6a5c;">View or download the original invitation to share with family and friends.</p>
+
+    <div class="invite-thumb" id="inviteThumb">
+      <img src="invitiation.jpeg" alt="Wedding invitation of Ajeesh and Archana">
+    </div>
+
+    <div class="invite-actions">
+      <a class="btn-outline" href="invitiation.jpeg" target="_blank" rel="noopener">View Full Size</a>
+      <a class="btn-outline" href="invitiation.jpeg" download>Download</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="om" style="color:var(--gold-light);">&#3421;</div>
+  <div class="hosts-title">Sharing the happiness</div>
+  <div class="hosts-names">Prajith &middot; Prajeesh &middot; Lekshmi &middot; Abhi &middot; Devu &middot; Athulya P Kurup</div>
+  <div class="contact-row">
+    <a href="tel:+918281819022">+91 82818 19022</a>
+    <a href="tel:+918281819211">+91 82818 19211</a>
+  </div>
+  <div class="footer-note">With love, for Ajeesh &amp; Archana &mdash; 12th September 2026</div>
+</footer>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <span class="lightbox-nav lightbox-prev" id="lbPrev">&#8249;</span>
+  <img id="lbImg" src="" alt="">
+  <span class="lightbox-nav lightbox-next" id="lbNext">&#8250;</span>
+</div>
+
+<script>
+  // ---- Countdown ----
+  var target = new Date('2026-09-12T11:00:00+05:30').getTime();
+  function tick(){
+    var now = new Date().getTime();
+    var diff = target - now;
+    if(diff <= 0){
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '0';
+      document.getElementById('cd-secs').textContent = '0';
+      return;
+    }
+    var d = Math.floor(diff/(1000*60*60*24));
+    var h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    var m = Math.floor((diff%(1000*60*60))/(1000*60));
+    var s = Math.floor((diff%(1000*60))/1000);
+    document.getElementById('cd-days').textContent = d;
+    document.getElementById('cd-hours').textContent = h;
+    document.getElementById('cd-mins').textContent = m;
+    document.getElementById('cd-secs').textContent = s;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---- Gallery carousel: duplicate items for a seamless auto-scroll loop ----
+  var galTrack = document.getElementById('galTrack');
+  var galImgs = Array.prototype.map.call(galTrack.querySelectorAll('.gal-item img'), function(img){ return img.getAttribute('src'); });
+  var originalCount = galImgs.length;
+  Array.prototype.slice.call(galTrack.children).forEach(function(item){
+    galTrack.appendChild(item.cloneNode(true));
+  });
+
+  // ---- Gallery lightbox ----
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var currentIdx = 0;
+
+  function openLightbox(idx){
+    currentIdx = idx;
+    lbImg.src = galImgs[currentIdx];
+    lb.classList.add('active');
+    galTrack.classList.add('paused');
+  }
+  function closeLightbox(){ lb.classList.remove('active'); galTrack.classList.remove('paused'); }
+  function showNext(){ currentIdx = (currentIdx+1) % galImgs.length; lbImg.src = galImgs[currentIdx]; }
+  function showPrev(){ currentIdx = (currentIdx-1+galImgs.length) % galImgs.length; lbImg.src = galImgs[currentIdx]; }
+
+  document.querySelectorAll('#galTrack .gal-item').forEach(function(item, domIdx){
+    item.addEventListener('click', function(){ openLightbox(domIdx % originalCount); });
+  });
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbNext').addEventListener('click', showNext);
+  document.getElementById('lbPrev').addEventListener('click', showPrev);
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('active')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowRight') showNext();
+    if(e.key === 'ArrowLeft') showPrev();
+  });
+
+  // invitation thumbnail also opens in lightbox-style view
+  document.getElementById('inviteThumb').addEventListener('click', function(){
+    lbImg.src = 'invitiation.jpeg';
+    lb.classList.add('active');
+    currentIdx = -1;
+  });
+
+  // close mobile nav after clicking a link
+  document.querySelectorAll('.navlinks a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('navToggle').checked = false; });
+  });
+
+  // ---- Theme switcher ----
+  (function(){
+    var root = document.documentElement;
+    var saved = localStorage.getItem('weddingTheme');
+    if(saved){ root.setAttribute('data-theme', saved); }
+    function setActiveDot(){
+      var current = root.getAttribute('data-theme') || 'traditional';
+      document.querySelectorAll('.ts-dot').forEach(function(d){
+        d.classList.toggle('active', d.getAttribute('data-theme') === current);
+      });
+    }
+    setActiveDot();
+    document.querySelectorAll('.ts-dot').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var theme = btn.getAttribute('data-theme');
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('weddingTheme', theme);
+        setActiveDot();
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
