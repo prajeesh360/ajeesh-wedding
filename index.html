@@ -98,7 +98,8 @@
     border-bottom:1px solid var(--gold-light);
   }
   nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px;}
-  .brand{font-size:20px;color:var(--maroon-dark);letter-spacing:1px;}
+  .brand{display:flex;align-items:center;}
+  .brand img{height:44px;width:auto;display:block;}
   .navlinks{display:flex;gap:26px;font-size:14px;letter-spacing:.5px;}
   .navlinks a{position:relative;padding:4px 0;}
   .navlinks a:hover{color:var(--maroon);}
@@ -255,6 +256,7 @@
     max-width:900px;margin-left:auto;margin-right:auto;
   }
   @media(min-width:720px){.video-grid{grid-template-columns:1fr 1fr;}}
+  .video-grid-single{max-width:460px;grid-template-columns:1fr;}
   .video-card{
     background:#fff;border:1px solid var(--gold-light);border-radius:14px;
     padding:16px;box-shadow:var(--shadow);
@@ -300,7 +302,7 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand">A &amp; A</div>
+    <div class="brand"><img src="images/logo.png" alt="Ajeesh &amp; Archana"></div>
     <input type="checkbox" id="navToggle" style="display:none;">
     <label class="burger" for="navToggle">&#9776;</label>
     <div class="navlinks">
@@ -439,18 +441,11 @@
     <div class="eyebrow">A little preview</div>
     <h2 class="section-title">Save the Date</h2>
     <div class="divider"><span>&#10047;</span></div>
-    <p class="center" style="max-width:480px;margin:0 auto;color:#7a6a5c;">Two short films to celebrate the countdown &mdash; pick your mood.</p>
+    <p class="center" style="max-width:480px;margin:0 auto;color:#7a6a5c;">A short film to celebrate the countdown.</p>
 
-    <div class="video-grid">
+    <div class="video-grid video-grid-single">
       <div class="video-card">
-        <div class="video-label">Elegant</div>
-        <video controls autoplay muted loop preload="auto" playsinline>
-          <source src="Save%20the%20Date%20-%20Elegant.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-card">
-        <div class="video-label">Romantic</div>
-        <video controls autoplay muted loop preload="auto" playsinline>
+        <video id="savedateVideo" controls autoplay muted preload="auto" playsinline>
           <source src="Save%20the%20Date%20-%20Romantic.mp4" type="video/mp4">
         </video>
       </div>
@@ -545,6 +540,14 @@
   document.querySelectorAll('.navlinks a').forEach(function(a){
     a.addEventListener('click', function(){ document.getElementById('navToggle').checked = false; });
   });
+
+  // ---- Save-the-date video: replay after a 5s pause instead of looping straight away ----
+  var savedateVideo = document.getElementById('savedateVideo');
+  if(savedateVideo){
+    savedateVideo.addEventListener('ended', function(){
+      setTimeout(function(){ savedateVideo.currentTime = 0; savedateVideo.play(); }, 5000);
+    });
+  }
 
   // ---- Theme switcher ----
   (function(){
