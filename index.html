@@ -47,7 +47,7 @@
   :root[data-theme="colorful"] .d-card,
   :root[data-theme="colorful"] .gal-item,
   :root[data-theme="colorful"] .cd-box,
-  :root[data-theme="colorful"] .invite-thumb,
+  :root[data-theme="colorful"] .video-card,
   :root[data-theme="colorful"] .map-frame{ border-radius:26px; }
 
   /* Romantic Garden (surprise pick): emerald & blush, still ornate */
@@ -245,21 +245,22 @@
   .lightbox-prev{left:6px;}
   .lightbox-next{right:6px;}
 
-  /* ---------- INVITATION ---------- */
-  .invite-card{
+  /* ---------- SAVE THE DATE VIDEOS ---------- */
+  .save-date{
     background:linear-gradient(180deg,var(--cream-dark) 0%,var(--cream) 100%);
     text-align:center;
   }
-  .invite-thumb{
-    max-width:320px;margin:40px auto 0;border-radius:10px;overflow:hidden;box-shadow:var(--shadow);
-    border:1px solid var(--gold-light);cursor:pointer;
+  .video-grid{
+    display:grid;grid-template-columns:1fr;gap:28px;margin-top:44px;
+    max-width:900px;margin-left:auto;margin-right:auto;
   }
-  .invite-actions{margin-top:26px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-  .btn-outline{
-    border:1px solid var(--maroon);color:var(--maroon);padding:12px 26px;border-radius:30px;
-    font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:.2s;
+  @media(min-width:720px){.video-grid{grid-template-columns:1fr 1fr;}}
+  .video-card{
+    background:#fff;border:1px solid var(--gold-light);border-radius:14px;
+    padding:16px;box-shadow:var(--shadow);
   }
-  .btn-outline:hover{background:var(--maroon);color:#fff;}
+  .video-label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
+  .video-card video{width:100%;max-height:520px;display:block;border-radius:10px;background:#000;}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--maroon-dark);color:#e9d4b8;text-align:center;padding:60px 20px 30px;border-top:1px solid rgba(230,200,119,.3);}
@@ -307,7 +308,7 @@
       <a href="#families">Families</a>
       <a href="#details">Details</a>
       <a href="#gallery">Gallery</a>
-      <a href="#invitation">Invitation</a>
+      <a href="#savedate">Films</a>
     </div>
   </div>
 </nav>
@@ -432,21 +433,27 @@
   </div>
 </section>
 
-<!-- ================= INVITATION ================= -->
-<section class="invite-card" id="invitation">
+<!-- ================= SAVE THE DATE VIDEOS ================= -->
+<section class="save-date" id="savedate">
   <div class="wrap">
-    <div class="eyebrow">The formal card</div>
-    <h2 class="section-title">E-Invitation</h2>
+    <div class="eyebrow">A little preview</div>
+    <h2 class="section-title">Save the Date</h2>
     <div class="divider"><span>&#10047;</span></div>
-    <p class="center" style="max-width:480px;margin:0 auto;color:#7a6a5c;">View or download the original invitation to share with family and friends.</p>
+    <p class="center" style="max-width:480px;margin:0 auto;color:#7a6a5c;">Two short films to celebrate the countdown &mdash; pick your mood.</p>
 
-    <div class="invite-thumb" id="inviteThumb">
-      <img src="invitiation.jpeg" alt="Wedding invitation of Ajeesh and Archana">
-    </div>
-
-    <div class="invite-actions">
-      <a class="btn-outline" href="invitiation.jpeg" target="_blank" rel="noopener">View Full Size</a>
-      <a class="btn-outline" href="invitiation.jpeg" download>Download</a>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-label">Elegant</div>
+        <video controls autoplay muted loop preload="auto" playsinline>
+          <source src="Save%20the%20Date%20-%20Elegant.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-card">
+        <div class="video-label">Romantic</div>
+        <video controls autoplay muted loop preload="auto" playsinline>
+          <source src="Save%20the%20Date%20-%20Romantic.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 </section>
@@ -533,12 +540,6 @@
     if(e.key === 'ArrowLeft') showPrev();
   });
 
-  // invitation thumbnail also opens in lightbox-style view
-  document.getElementById('inviteThumb').addEventListener('click', function(){
-    lbImg.src = 'invitiation.jpeg';
-    lb.classList.add('active');
-    currentIdx = -1;
-  });
 
   // close mobile nav after clicking a link
   document.querySelectorAll('.navlinks a').forEach(function(a){
